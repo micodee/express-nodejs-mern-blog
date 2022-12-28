@@ -1,4 +1,5 @@
 exports.createProduct = (req, res, next) => {
+  // console.log(req.body)
   const name = req.body.name
   const price = req.body.price
   res.json({
