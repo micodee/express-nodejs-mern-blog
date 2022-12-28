@@ -4,7 +4,7 @@ exports.createProduct = (req, res, next) => {
     data: {
         id: 1,
         name: "sari gandum",
-        price: 9000
+        price: 10000
     }
   });
   next();
