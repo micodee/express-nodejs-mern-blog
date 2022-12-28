@@ -1,9 +1,12 @@
 const express = require("express");
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 const app = express();
 
 const productRoutes = require('./src/routes/Products')
+
+app.use(bodyParser.json()) // type JSON
 
 app.use(cors(), (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
