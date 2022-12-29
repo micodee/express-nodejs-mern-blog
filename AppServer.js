@@ -4,8 +4,8 @@ const bodyParser = require('body-parser')
 
 const app = express();
 
-const productRoutes = require('./src/routes/Products')
 const authRoutes = require('./src/routes/Auth')
+const blogRoutes = require('./src/routes/Blog')
 
 app.use(bodyParser.json()) // type JSON
 
@@ -16,8 +16,8 @@ app.use(cors(), (req, res, next) => {
   next()
 })
 
-app.use("/v1/customer", productRoutes);
 app.use("/v1/auth", authRoutes);
+app.use("/v1/blog", blogRoutes);
 
 const port = 3000;
 app.listen(port, () => console.log(`running on http://localhost:${port}`));
