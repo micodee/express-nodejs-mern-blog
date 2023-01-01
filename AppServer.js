@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors') // perizinan agar api kita keterima di browser
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 
 const app = express();
 
@@ -27,5 +28,10 @@ app.use((error, req, res, next) => {
   res.status(status).json({message: message, data: data})
 })
 
-const port = 3000;
-app.listen(port, () => console.log(`running on http://localhost:${port}`));
+mongoose.connect('mongodb+srv://micode:eTvRD7ZZNyh3q68H@cluster0.pgof8ma.mongodb.net/?retryWrites=true&w=majority')
+.then(() => { // apa bila berhasil
+  const port = 3000;
+  app.listen(port, () => console.log(`running on http://localhost:${port}`));
+})
+.catch(err => console.log(err)); // jika tidak berhasil
+
