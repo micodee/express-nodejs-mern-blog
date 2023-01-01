@@ -1,14 +1,36 @@
 const express = require("express");
 const cors = require('cors') // perizinan agar api kita keterima di browser
 const bodyParser = require('body-parser')
-const mongoose = require('mongoose')
+const mongoose = require('mongoose') // database mongodb
+const multer = require('multer') // untuk menghidupkan file image
 
 const app = express();
 
 const authRoutes = require('./src/routes/Auth')
 const blogRoutes = require('./src/routes/Blog')
 
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => { // cb (callback)
+    cb(null, 'img') // nama folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now()+ '-' + file.originalname) // originalname (nama asli yang dikirim)
+  }
+})
+
+const fileFilter = (req, file, cb) => {
+  if(file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg'){
+    cb(null, true) // artinya diterima file tersebut
+  } else {
+    cb(null, false)
+  }
+}
+
 app.use(bodyParser.json()) // type JSON
+app.use(multer({
+  storage: fileStorage,
+  fileFilter: fileFilter
+}).single('image'))
 
 app.use(cors(), (req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
