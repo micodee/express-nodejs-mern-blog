@@ -12,5 +12,6 @@ router.post('/post', [
 ], blogControllers.createBlogPost)
 
 router.get('/posts', blogControllers.getAllBlogPost)
+router.get('/post/:postId', blogControllers.getIdBlogPost)
 
 module.exports = router
