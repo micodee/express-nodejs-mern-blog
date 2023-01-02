@@ -9,7 +9,8 @@ const blogControllers = require('../controllers/Blog')
 router.post('/post', [
     body('title').isLength({min: 5}).withMessage('Input Title Kurang Dari 5 Huruf'), 
     body('body').isLength({min: 5}).withMessage('Input Content Kurang Dari 5 Huruf')
-], 
-    blogControllers.createBlogPost)
+], blogControllers.createBlogPost)
+
+router.get('/posts', blogControllers.getAllBlogPost)
 
 module.exports = router
