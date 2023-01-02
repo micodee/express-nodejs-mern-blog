@@ -3,6 +3,7 @@ const cors = require('cors') // perizinan agar api kita keterima di browser
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose') // database mongodb
 const multer = require('multer') // untuk menghidupkan file image
+const path = require('path') // mengizinkan get gambar
 
 const app = express();
 
@@ -27,6 +28,7 @@ const fileFilter = (req, file, cb) => {
 }
 
 app.use(bodyParser.json()) // type JSON
+app.use('/img', express.static(path.join(__dirname, 'img')))
 app.use(multer({
   storage: fileStorage,
   fileFilter: fileFilter
