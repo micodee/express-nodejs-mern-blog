@@ -19,4 +19,6 @@ router.put('/post/:postId', [
     body('body').isLength({min: 5}).withMessage('Input Content Kurang Dari 5 Huruf')
 ], blogControllers.updateBlogPost)
 
+router.delete('/post/:postId', blogControllers.deleteBlogPost)
+
 module.exports = router
