@@ -11,6 +11,7 @@ router.post('/post', [
     body('body').isLength({min: 5}).withMessage('Input Content Kurang Dari 5 Huruf')
 ], blogControllers.createBlogPost)
 
+// router.get('/posts?page=1&perPage=10', blogControllers.getAllBlogPost)
 router.get('/posts', blogControllers.getAllBlogPost)
 router.get('/post/:postId', blogControllers.getIdBlogPost)
 

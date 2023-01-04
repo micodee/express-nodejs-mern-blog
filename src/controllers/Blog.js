@@ -48,11 +48,25 @@ exports.createBlogPost = (req, res, next) => {
 // =============================================================================================
 
 exports.getAllBlogPost = (req, res, next) => {
+  const currentPage = req.query.page || 1 // default apabila querynya kosong 
+  const perPage = req.query.perPage || 5
+  let totalItems
+
   BlogPost.find()
+  .countDocuments() // hitung data
+  .then(count => {
+    totalItems = count // hitung jumlah data
+    return BlogPost.find()
+    .skip((parseInt(currentPage) - 1) * parseInt(perPage)) // parseInt mengubah string menjadi integer
+    .limit(parseInt(perPage))
+  })
   .then(result => {
     res.status(200).json({
       message: "Data blog post berhasil dipanggil",
-      data: result
+      data: result,
+      total_data: totalItems, // untuk respon biasanya menggunakan underskor (_)
+      per_page: parseInt(perPage),
+      current_page: parseInt(currentPage),
     })
   })
   .catch(err => {
